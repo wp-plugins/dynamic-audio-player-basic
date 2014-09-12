@@ -3,7 +3,7 @@ Contributors: msalsas
 Tags: audio, player, mp3, ogg, playlist
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Dynamic Audio Player is a Wordpress plugin which allows you to add an audio play
 with a dynamic playlist and shortcodes for single buttons. 
 
 The <a href="http://dynamicaudioplayer.com">Pro version</a> plays tracks while the user navigates through the site.
-You can find some tutorials at <a href="http://dymanicaudioplayer.com/tutorials/">.
+You can find some tutorials at <a href="http://dynamicaudioplayer.com/tutorials/">dynamicaudioplayer.com/tutorials/</a>.
 They are for Pro version purpose, but they are also useful for basic version. The only difference is that 
 you don't have to activate the license key.
 
@@ -51,3 +51,6 @@ Check it at <a href="http://dynamicaudioplayer.com">dynamicaudioplayer.com</a>
 
 = 1.0.0 =
 First version
+
+= 1.0.1 =
+Fix readme link
