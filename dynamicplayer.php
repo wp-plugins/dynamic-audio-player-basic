@@ -3,7 +3,7 @@
 Plugin Name: Dynamic Audio Player
 Plugin URI: http://dynamicaudioplayer.com
 Description: This plugin allows you to add an audio player widget with a dynamic playlist and shortcodes for single buttons
-Version: 1.1.0
+Version: 1.1.1
 Author: Manolo Salsas Durán
 Author URI: http://msalsas.com/en/
 License: GPL2
@@ -51,10 +51,10 @@ function dyn_scripts() {
 	wp_enqueue_style( 'jscrollpane-stylesheet' );
 	 
 	$dyn_option = get_option( "widget_dynamic-player-widget" );
-	if(isset($dyn_option[1]['dynTotalWidth']) && get_option( "widget_dynamic-player-widget" )[1]['dynTotalWidth'] == 'Small')
+	if(isset($dyn_option[1], $dyn_option[1]['dynTotalWidth']) && get_option( "widget_dynamic-player-widget" )[1]['dynTotalWidth'] == 'Small')
 		wp_register_style( 'default-stylesheet', plugins_url('/css/smallPlayer.css', __FILE__) );
 	
-	else if(isset($dyn_option[1]['dynTotalWidth']) && get_option( "widget_dynamic-player-widget" )[1]['dynTotalWidth'] == 'Large')
+	else if(isset($dyn_option[1], $dyn_option[1]['dynTotalWidth']) && get_option( "widget_dynamic-player-widget" )[1]['dynTotalWidth'] == 'Large')
 		wp_register_style( 'default-stylesheet', plugins_url('/css/largePlayer.css', __FILE__) );
 	
 	else

@@ -3,7 +3,7 @@ Contributors: msalsas
 Tags: audio, player, mp3, ogg, playlist
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,9 @@ The Pro version plugin plays tracks while the user navigate through the site.
 Check it at <a href="http://dynamicaudioplayer.com">dynamicaudioplayer.com</a>
 
 == Changelog ==
+
+= 1.1.1 =
+Fix second error when using an older PHP version than 5.4.
 
 = 1.1.0 =
 Fix error fired when using an older PHP version than 5.4.
