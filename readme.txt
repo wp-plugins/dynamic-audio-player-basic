@@ -15,10 +15,8 @@ with a dynamic playlist and shortcodes for single buttons.
 Dynamic Audio Player is a Wordpress plugin which allows you to add an audio player widget 
 with a dynamic playlist and shortcodes for single buttons. 
 
-The <a href="http://dynamicaudioplayer.com">Pro version</a> plays tracks while the user navigates through the site.
+The 2.0.0 plugin version keeps the tracks playing while the user navigates through the site.
 You can find some tutorials at <a href="http://dynamicaudioplayer.com/tutorials/">dynamicaudioplayer.com/tutorials/</a>.
-They are for Pro version purpose, but they are also useful for basic version. The only difference is that 
-you don't have to activate the license key.
 
 
 == Installation ==
@@ -42,12 +40,10 @@ you can see the audio codec support for each browser.
 
 No. It will work only with HTML5 audio compatible browsers. <a title="caniuse.com" href="http://caniuse.com/#search=audio element" target="_blank">Here</a> you can see a list of supported browsers.
 
-= What is the difference with the <a href="http://dynamicaudioplayer.com">Pro version</a>? =
-
-The Pro version plugin plays tracks while the user navigate through the site. 
-Check it at <a href="http://dynamicaudioplayer.com">dynamicaudioplayer.com</a>
-
 == Changelog ==
+
+= 2.0.0 =
+Integrated the PRO version. Now you can navigate through the site while the tracks keep playing.
 
 = 1.1.2 =
 Compatible with 4.2.1

@@ -238,41 +238,144 @@
 		
 		
 		//Get playlist
-
-		//Use default playlist
-		if(typeof $("#dynamic-playlist li").first().attr("data-ogg") !== "undefined" || typeof $("#dynamic-playlist li").first().attr("data-mp3") !== "undefined")  {
-			currentRow = dynThisPlayer.find("#dynamic-playlist li").first();	
-			for(var i=0; i<=4; i++) {
-				if( options.dynOggFile[i] || options.dynMp3File[i] ) {
-					currentRow.attr("data-title", options.dynTitle[i]);
-					currentRow.attr("data-artist", ' ( ' + options.dynArtist[i] + ' ) ');
-					if(options.dynAlbum[i]) 
-						currentRow.attr("data-album", ' - Album: ' + options.dynAlbum[i]);
-					if(options.dynDate[i])
-					currentRow.attr("data-album-date", ' - Date: ' + options.dynDate[i]);
-					currentRow.attr("data-mp3", options.dynMp3File[i]);
-					currentRow.attr("data-ogg", options.dynOggFile[i]);
-					currentRow.attr("data-image", options.dynImageFile[i]);
-					currentRow.text(currentRow.attr("data-title") + ' - ' + currentRow.attr("data-artist"));
-					var newLi = $('#dynamic-playlist li').first().clone(true);
-					$('#dynamic-playlist').append(newLi.clone(true));
-					currentRow = currentRow.next();
-				}
-			}
-
-			$('#dynamic-playlist li').last().remove();
-			
-			currentRow = dynThisPlayer.find("#dynamic-playlist li").first();
-			
-		}
-		songPlay(currentRow);
-		if(options.dynAutoplayEnabled == 'true' && currentRow) {
-			$(".dynamic-play").addClass("dynamic-pause");
-			$(htmlSound).on('canplaythrough canplay', function() {
-				htmlSound.play();
-			});
-		}					
+		$.post(DynamicAjax.url, {nonce : DynamicAjax.nonce, action : 'dynamicAjax456534' , dynamicSearchTracks : true}, function(response) {
 		
+			if(response) 
+			{
+				//Use stored playlist
+				response = $.parseJSON(response);		
+
+				currentRow = dynThisPlayer.find("#dynamic-playlist li").first();	
+				for(var i=0; i<=Object.size(response); i++) {
+					if( typeof response !== "undefined" && typeof response[i] !== "undefined" ) {
+						currentRow.attr("data-title", response[i].title);
+						currentRow.attr("data-artist", response[i].artist);
+						if(typeof response[i].album !== "undefined") 
+							currentRow.attr("data-album", response[i].album);
+						if(typeof response[i].date !== "undefined") 
+						currentRow.attr("data-album-date", response[i].date);
+						currentRow.attr("data-mp3", response[i].mp3);
+						currentRow.attr("data-ogg", response[i].ogg);
+						currentRow.attr("data-image", response[i].image);
+						currentRow.text(currentRow.attr("data-title") + ' - ' + currentRow.attr("data-artist"));
+						var newLi = $('#dynamic-playlist li').first().clone(true);
+						$('#dynamic-playlist').append(newLi.clone(true));
+
+						if( typeof response[i].playing !== "undefined" && typeof response[i].time !== "undefined" )
+						{
+							playingOnRow = response[i].playing;
+							playingRow = currentRow;		
+							currentTime = response[i].time;
+							currentVolume = response[i].volume;
+						} 
+						
+						currentRow = currentRow.next();
+					}
+				}
+			
+				currentRow = playingRow;
+				
+				songPlay(currentRow);
+				$(htmlSound).on('canplay', function() {
+					htmlSound.currentTime = currentTime;
+					htmlSound.volume = currentVolume;
+					dynThisPlayer.find( ".dynamic-volume-slider" ).slider("option", "value", currentVolume);
+					if( playingOnRow == 'true' ) {
+						$(htmlSound).on('canplaythrough canplay', function() {
+							htmlSound.play();
+						});
+						$(".dynamic-play").addClass("dynamic-pause");					
+					} else 
+						$(".dynamic-play").removeClass("dynamic-pause");
+						
+					$(htmlSound).off("canplay")
+				});	
+										
+				$('#dynamic-playlist li').last().remove();		
+				
+			} else {
+				//Use default playlist
+				if(typeof $("#dynamic-playlist li").first().attr("data-ogg") !== "undefined" || typeof $("#dynamic-playlist li").first().attr("data-mp3") !== "undefined")  {
+					currentRow = dynThisPlayer.find("#dynamic-playlist li").first();	
+					for(var i=0; i<=4; i++) {
+						if( options.dynOggFile[i] || options.dynMp3File[i] ) {
+							currentRow.attr("data-title", options.dynTitle[i]);
+							currentRow.attr("data-artist", ' ( ' + options.dynArtist[i] + ' ) ');
+							if(options.dynAlbum[i]) 
+								currentRow.attr("data-album", ' - Album: ' + options.dynAlbum[i]);
+							if(options.dynDate[i])
+							currentRow.attr("data-album-date", ' - Date: ' + options.dynDate[i]);
+							currentRow.attr("data-mp3", options.dynMp3File[i]);
+							currentRow.attr("data-ogg", options.dynOggFile[i]);
+							currentRow.attr("data-image", options.dynImageFile[i]);
+							currentRow.text(currentRow.attr("data-title") + ' - ' + currentRow.attr("data-artist"));
+							var newLi = $('#dynamic-playlist li').first().clone(true);
+							$('#dynamic-playlist').append(newLi.clone(true));
+							currentRow = currentRow.next();
+						}
+					}
+
+					$('#dynamic-playlist li').last().remove();
+					
+					currentRow = dynThisPlayer.find("#dynamic-playlist li").first();
+					
+				}
+				songPlay(currentRow);
+				if(options.dynAutoplayEnabled == 'true' && currentRow) {
+					$(".dynamic-play").addClass("dynamic-pause");
+					$(htmlSound).on('canplaythrough canplay', function() {
+						htmlSound.play();
+					});
+				}					
+			}	
+			 	
+		});
+		
+
+		//Save playlist, current playing song, current time and current volume
+		//before clicking a link or submitting a form
+		$("a").on('click', onClickLinkOrSubmitForm);
+		$("form").on('submit', onClickLinkOrSubmitForm);
+		
+		function onClickLinkOrSubmitForm(e)
+		{
+			e.preventDefault();	
+			dynamicData = {};
+			var tracksCounter = 0;
+			dynThisPlayer.find('#dynamic-playlist li').each(function(index, value) {
+				tracksCounter++;
+				if(tracksCounter >= 40) return false;
+				value = $(value);
+				dynamicData[index] = {};
+				
+				dynamicData[index].title = value.attr('data-title');
+				dynamicData[index].artist = value.attr('data-artist');
+				dynamicData[index].album = value.attr('data-album');
+				dynamicData[index].date = value.attr('data-album-date');
+				dynamicData[index].ogg = value.attr('data-ogg');
+				dynamicData[index].mp3 = value.attr('data-mp3');
+				dynamicData[index].image = value.attr('data-image');
+				if(value.hasClass("dynamic-playing")) {
+					dynamicData[index].playing = true;
+					dynamicData[index].time = htmlSound.currentTime;
+					dynamicData[index].volume = htmlSound.volume;
+					if(! $(".dynamic-play").hasClass("dynamic-pause")) 
+						dynamicData[index].playing = false;
+				}
+
+				
+			});
+
+			var thisLink = $(this);
+			$.post(DynamicAjax.url, {nonce : DynamicAjax.nonce, action : 'dynamicAjax456534' , dynamicTracks : dynamicData}, function(res) {
+				if(thisLink.prop("tagName") == "A")	
+					window.location = thisLink.attr("href");
+				else
+					thisLink.off("submit");
+					thisLink.submit();
+			});			
+		}
+
 
 		function eventListenerFunction() {
 	

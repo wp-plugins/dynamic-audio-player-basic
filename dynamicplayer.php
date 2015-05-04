@@ -3,7 +3,7 @@
 Plugin Name: Dynamic Audio Player
 Plugin URI: http://dynamicaudioplayer.com
 Description: This plugin allows you to add an audio player widget with a dynamic playlist and shortcodes for single buttons
-Version: 1.1.2
+Version: 2.0.0
 Author: Manolo Salsas Durán
 Author URI: http://msalsas.com/en/
 License: GPL2
@@ -61,6 +61,9 @@ function dyn_scripts() {
 		wp_register_style( 'default-stylesheet', plugins_url('/css/default.css', __FILE__) );
 		
 	wp_enqueue_style( 'default-stylesheet' );
+
+	wp_localize_script( 'dynamicplayer', 'DynamicAjax', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'dynamicAjax-post-comment-nonce' ) ) );
+
 	
 }
 	
@@ -70,6 +73,33 @@ if( !is_admin() ) {
 	add_action('admin_enqueue_scripts', 'dynamic_my_admin_scripts45656754');
 
 }
+
+function dynamicAjax456534_callback() {
+	$nonce = $_POST['nonce'];
+    if ( ! wp_verify_nonce( $nonce, 'dynamicAjax-post-comment-nonce' ) )
+        die ();
+
+    //Search
+	if( isset($_POST['dynamicTracks']) && ! isset( $_POST['dynamicSearchTracks']) ) {
+		if(!session_id()) 
+			session_start();
+
+		$dynamicTracks = $_POST['dynamicTracks'];
+		if(is_array($dynamicTracks))
+			$_SESSION['dynamicTracks'] = json_encode(array_slice($dynamicTracks, 0, 39));
+		
+	} elseif( isset( $_POST['dynamicSearchTracks'])) {
+		if(!session_id()) 
+			session_start();
+		if( isset($_SESSION['dynamicTracks']) && $_SESSION['dynamicTracks'] ) {
+			echo $_SESSION['dynamicTracks'];
+		}
+	}
+	die();
+}
+
+add_action('wp_ajax_dynamicAjax456534', 'dynamicAjax456534_callback');
+add_action('wp_ajax_nopriv_dynamicAjax456534', 'dynamicAjax456534_callback');
 
 function dynamic_my_admin_scripts45656754() {
 
@@ -448,17 +478,15 @@ function dynamic_player_register_settings () {
 
 function dynamic_player_settings() {
 
-    add_menu_page('Dynamic Player', 'Dynamic Player', 'administrator', 'dynamic_player_register_settings', 'dynamic_player_control_panel', plugins_url('/images/dynamic-icon.png', __FILE__) );
+    add_menu_page('Dynamic Player', 'Dynamic Player', 'administrator', 'dynamic_player_register_settings', 'dynamic_player_control_panel', plugins_url('/images/dynamic-icon.png', __FILE__));
 
 }
 
 
 function dynamic_player_control_panel () {
-	
-		
 ?>
-    <p><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/dynamic-audio-player-basic?rate=5#postform"><h3>If you like this plugin please take the time to rate it HERE</h3></a></p>
-    <h4>If you are looking for a more advanced version of this plugin with more features go to <a target="_blank" href="http://dynamicaudioplayer.com">pro version</a>.</h4>
+    <p><a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/dynamic-audio-player-basic#postform"><h3>If you like this plugin please take the time to rate it HERE</h3></a></p>
+    <h4>If you are looking for a more advanced version of this plugin with more features <a target="_blank" href="http://dynamicaudioplayer.com/contact/">contact me</a>.</h4>
     
    <hr>
 
