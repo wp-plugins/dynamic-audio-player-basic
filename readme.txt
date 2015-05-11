@@ -13,8 +13,9 @@ Tracks keep playing during navigation.
 
 == Description ==
 
-Provides an audio player widget with a dynamic playlist and shortcodes for "play" and "add" buttons.
-Tracks keep playing while the user navigates through the web site.
+Provides an audio player widget 
+with a dynamic playlist and shortcodes.
+Tracks keep playing during navigation.
 
 You can find an example and a detailed description at <a href="http://dynamicaudioplayer.com/">dynamicaudioplayer.com/</a>.
 And some tutorials at <a href="http://dynamicaudioplayer.com/tutorials/">dynamicaudioplayer.com/tutorials/</a>.
