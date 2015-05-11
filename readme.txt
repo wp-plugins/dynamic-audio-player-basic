@@ -7,16 +7,18 @@ Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Dynamic Audio Player provides an audio player widget 
-with a dynamic playlist and shortcodes for single buttons.
+Provides an audio player widget 
+with a dynamic playlist and shortcodes for "play" and "add" buttons.
+Tracks keep playing while the user navigstes through the site.
 
 == Description ==
 
-Dynamic Audio Player is a Wordpress plugin which allows you to add an audio player widget 
-with a dynamic playlist and shortcodes for single buttons. 
+Provides an audio player widget 
+with a dynamic playlist and shortcodes for "play" and "add" buttons.
+Tracks keep playing while the user navigates through the web site.
 
-The 2.0.0 plugin version keeps the tracks playing while the user navigates through the site.
-You can find some tutorials at <a href="http://dynamicaudioplayer.com/tutorials/">dynamicaudioplayer.com/tutorials/</a>.
+You can find an example and a detailed description at <a href="http://dynamicaudioplayer.com/">dynamicaudioplayer.com/</a>.
+And some tutorials at <a href="http://dynamicaudioplayer.com/tutorials/">dynamicaudioplayer.com/tutorials/</a>.
 
 
 == Installation ==
@@ -38,9 +40,16 @@ you can see the audio codec support for each browser.
 
 = So, does this plugin work with any browser? =
 
-No. It will work only with HTML5 audio compatible browsers. <a title="caniuse.com" href="http://caniuse.com/#search=audio element" target="_blank">Here</a> you can see a list of supported browsers.
+No (but almost). It will work only with HTML5 audio compatible browsers. <a title="caniuse.com" href="http://caniuse.com/#search=audio element" target="_blank">Here</a> you can see a list of supported browsers.
+
+= The widget does not appear in the "widgets" section =
+
+Reload the page. If the widget "Dynamic Audio Player Widget" is not added to the sidebar, add it manually.
 
 == Changelog ==
+
+= 2.0.1 =
+Improve description and FAQ.
 
 = 2.0.0 =
 Integrated the PRO version. Now you can navigate through the site while the tracks keep playing.
