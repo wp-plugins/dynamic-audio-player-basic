@@ -48,6 +48,9 @@ Reload the page. If the widget "Dynamic Audio Player Widget" is not added to the
 
 == Changelog ==
 
+= 2.0.2 =
+Small fix.
+
 = 2.0.1 =
 Improve description and FAQ.
 
