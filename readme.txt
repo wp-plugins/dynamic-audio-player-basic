@@ -48,6 +48,9 @@ Reload the page. If the widget "Dynamic Audio Player Widget" is not added to the
 
 == Changelog ==
 
+= 2.0.8 =
+Set widget_dynamic-player-widget option order before getting CSS.
+
 = 2.0.7 =
 Set important rule to CSS to avoid jquery-ui overwriting. 
 
