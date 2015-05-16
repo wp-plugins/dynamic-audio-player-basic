@@ -142,59 +142,59 @@
 	width: 60px;
 }
 .dynamic-position-scrubber-image {
-	background: url('../images/player/dynSmall_timeScru.png') no-repeat;
-	height: 32px;
-	width: 100%;
-	margin-bottom: -3px;
-	cursor: pointer;
+	background: url('../images/player/dynSmall_timeScru.png') no-repeat !important;
+	height: 32px !important;
+	width: 100% !important;
+	margin-bottom: -3px !important;
+	cursor: pointer !important;
 }
 	.dynamic-position-scrubber-image .dynamic-position-scrubber {
-		background: #333332;
-		border: none;
-		height: 10px;
-		margin-top: 11px;
-		margin-left: 60px;
-		width: 60px;
+		background: #333332 !important;
+		border: none !important;
+		height: 10px !important;
+		margin-top: 11px !important;
+		margin-left: 60px !important;
+		width: 60px !important;
 	}
 	.dynamic-position-scrubber .ui-slider-handle {
-		background: #4f4d5c;
-		border: 1px solid black;
-		width: 10px;
-		height: 10px;
-		margin-top: 4px;
-		cursor: pointer;
+		background: #4f4d5c !important;
+		border: 1px solid black !important;
+		width: 10px !important;
+		height: 10px !important;
+		margin-top: 4px !important;
+		cursor: pointer !important;
 	}
 .dynamic-volume-slider-image {
 	background: url('../images/player/dynSmall_volum.png') no-repeat;
 	display: initial !important;
-	float: left;
-	background-size: auto 100%;
-	border: none;
-	height: 25px;
-	width: 150px;
-	margin-top: -5px;
+	float: left !important;
+	background-size: auto 100% !important;
+	border: none !important;
+	height: 25px !important;
+	width: 150px !important;
+	margin-top: -5px !important;
 }
 	.dynamic-volume-slider {
-		background: #333332;
-		border: none;
-		height: 6px;
-		margin-top: 10px;
-		margin-left: 35px;
-		width: 65%;
-		cursor: pointer;
+		background: #333332 !important;
+		border: none !important;
+		height: 6px !important;
+		margin-top: 10px !important;
+		margin-left: 35px !important;
+		width: 65% !important;
+		cursor: pointer !important;
 	}
 	.dynamic-volume-slider .ui-slider-handle {
-		background: #4f4d5c;
-		border: 1px solid black;
-		width: 8px;
-		height: 8px;
-		margin-top: 2px;
-		cursor: pointer;
+		background: #4f4d5c !important;
+		border: 1px solid black !important;
+		width: 8px !important;
+		height: 8px !important;
+		margin-top: 2px !important;
+		cursor: pointer !important;
 	}
 	.dynamic-volume-slider .ui-slider-range {
-		background: #333332;
-		border-bottom-left-radius: 0;
-		border-top-left-radius: 0;
+		background: #333332 !important;
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius: 0 !important;
 	}
 
 .dynamic-image {

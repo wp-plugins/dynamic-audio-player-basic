@@ -138,57 +138,57 @@
 	width: 60px;
 }
 .dynamic-position-scrubber-image {
-	background: url('../images/player/dynRegular_timeScru.png') no-repeat;
-	height: 32px;
-	width: 100%;
-	margin-bottom: -3px;
-	cursor: pointer;
+	background: url('../images/player/dynRegular_timeScru.png') no-repeat !important;
+	height: 32px !important;
+	width: 100% !important;
+	margin-bottom: -3px !important;
+	cursor: pointer !important;
 }
 	.dynamic-position-scrubber-image .dynamic-position-scrubber {
-		background: #333332;
-		border: none;
-		height: 10px;
-		margin-top: 11px;
-		margin-left: 64px;
-		width: 265px;
+		background: #333332 !important;
+		border: none !important;
+		height: 10px !important;
+		margin-top: 11px !important;
+		margin-left: 64px !important;
+		width: 265px !important;
 	}
 	.dynamic-position-scrubber .ui-slider-handle {
-		background: #4f4d5c;
-		border: 1px solid black;
-		width: 10px;
-		height: 10px;
-		margin-top: 4px;
-		cursor: pointer;
+		background: #4f4d5c !important;
+		border: 1px solid black !important;
+		width: 10px !important;
+		height: 10px !important;
+		margin-top: 4px !important;
+		cursor: pointer !important;
 	}
 .dynamic-volume-slider-image {
-	background: url('../images/player/dynRegular_volum.png') no-repeat;
-	display: inline-block;
-	background-size: auto 100%;
-	border: none;
-	height: 30px;
-	width: 170px;
+	background: url('../images/player/dynRegular_volum.png') no-repeat !important;
+	display: inline-block !important;
+	background-size: auto 100% !important;
+	border: none !important;
+	height: 30px !important;
+	width: 170px !important;
 }
 	.dynamic-volume-slider {
-		background: #333332;
-		border: none;
-		height: 8px;
-		margin-top: 11px;
-		margin-left: 35px;
-		width: 75%;
-		cursor: pointer;
+		background: #333332 !important;
+		border: none !important;
+		height: 8px !important;
+		margin-top: 11px !important;
+		margin-left: 35px !important;
+		width: 75% !important;
+		cursor: pointer !important;
 	}
 	.dynamic-volume-slider .ui-slider-handle {
-		background: #4f4d5c;
-		border: 1px solid black;
-		width: 10px;
-		height: 10px;
-		margin-top: 3px;
-		cursor: pointer;
+		background: #4f4d5c !important;
+		border: 1px solid black !important;
+		width: 10px !important;
+		height: 10px !important;
+		margin-top: 3px !important;
+		cursor: pointer !important;
 	}
 	.dynamic-volume-slider .ui-slider-range {
-		background: #333332;
-		border-bottom-left-radius: 0;
-		border-top-left-radius: 0;
+		background: #333332 !important;
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius: 0 !important;
 	}
 
 .dynamic-image {
