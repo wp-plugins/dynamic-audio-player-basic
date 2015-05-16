@@ -3,7 +3,7 @@
 Plugin Name: Dynamic Audio Player
 Plugin URI: http://dynamicaudioplayer.com
 Description: This plugin allows you to add an audio player widget with a dynamic playlist and shortcodes for single buttons
-Version: 2.0.5
+Version: 2.0.6
 Author: Manolo Salsas Durán
 Author URI: http://msalsas.com/en/
 License: GPL2
@@ -51,15 +51,29 @@ function dyn_scripts() {
 	wp_enqueue_style( 'jscrollpane-stylesheet' );
 	 
 	$dyn_option = get_option( "widget_dynamic-player-widget" );
-	if(is_array($dyn_option) && isset($dyn_option[1]) && is_array($dyn_option[1]) && isset($dyn_option[1]['dynTotalWidth']) && $dyn_option[1]['dynTotalWidth'] == 'Small')
-		wp_register_style( 'default-stylesheet', plugins_url('/css/smallPlayer.css', __FILE__) );
+	$styleRegistered = false;
+	foreach($dyn_option as $option)
+	{
+		if(is_array($option) && isset($option['dynTotalWidth']) && $option['dynTotalWidth'] == 'Small')
+		{
+			wp_register_style( 'default-stylesheet', plugins_url('/css/smallPlayer.css', __FILE__) );
+			$styleRegistered = true;
+			break;
+		}
+		else if(is_array($option) && isset($option['dynTotalWidth']) && $option['dynTotalWidth'] == 'Large')
+		{
+			wp_register_style( 'default-stylesheet', plugins_url('/css/largePlayer.css', __FILE__) );
+			$styleRegistered = true;			
+			break;
+		}
+				
+	}
 	
-	else if(is_array($dyn_option) && isset($dyn_option[1]) && is_array($dyn_option[1]) && isset($dyn_option[1]['dynTotalWidth']) && $dyn_option[1]['dynTotalWidth'] == 'Large')
-		wp_register_style( 'default-stylesheet', plugins_url('/css/largePlayer.css', __FILE__) );
-	
-	else
+	if(! $styleRegistered) 
+	{
 		wp_register_style( 'default-stylesheet', plugins_url('/css/default.css', __FILE__) );
-		
+	}
+	
 	wp_enqueue_style( 'default-stylesheet' );
 
 	wp_localize_script( 'dynamicplayer', 'DynamicAjax', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'dynamicAjax-post-comment-nonce' ) ) );
@@ -103,7 +117,7 @@ add_action('wp_ajax_nopriv_dynamicAjax456534', 'dynamicAjax456534_callback');
 
 function dynamic_my_admin_scripts45656754() {
 
-		if(substr($_SERVER["REQUEST_URI"], 0, 57) === "/wp-admin/admin.php?page=dynamic_player_register_settings") {
+		if(isset($_GET["page"]) && $_GET["page"] === "dynamic_player_register_settings") {
 			if(! wp_script_is('media-upload'))
 				wp_enqueue_script('media-upload');
 			if(! wp_script_is('thickbox'))

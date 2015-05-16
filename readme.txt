@@ -3,7 +3,7 @@ Contributors: msalsas
 Tags: audio, player, mp3, ogg, playlist
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.1.2
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,9 @@ No (but almost). It will work only with HTML5 audio compatible browsers. <a titl
 Reload the page. If the widget "Dynamic Audio Player Widget" is not added to the sidebar, add it manually.
 
 == Changelog ==
+
+= 2.0.6 =
+Fix registering css.
 
 = 2.0.5 =
 Small fix.
