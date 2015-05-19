@@ -3,7 +3,7 @@
 Plugin Name: Dynamic Audio Player
 Plugin URI: http://dynamicaudioplayer.com
 Description: This plugin allows you to add an audio player widget with a dynamic playlist and shortcodes for single buttons
-Version: 2.0.10
+Version: 2.1.0
 Author: Manolo Salsas Durán
 Author URI: http://msalsas.com/en/
 License: GPL2
@@ -30,7 +30,7 @@ License: GPL2
 /****************** REGISTER SCRIPTS AND STYLES ********************/
 
 
-function dyn_scripts() {
+function dyn_scripts($dyn_option) {
 	
 	wp_register_script( 'dynamicplayer', plugins_url('/js/dynamicplayer.js', __FILE__), array( 'jquery' ));	
 	wp_enqueue_script( 'dynamicplayer' );
@@ -50,8 +50,6 @@ function dyn_scripts() {
 	wp_register_style( 'jscrollpane-stylesheet', plugins_url('/js/jscrollpane/style/jquery.jscrollpane.css', __FILE__) );
 	wp_enqueue_style( 'jscrollpane-stylesheet' );
 	 
-	$dyn_option = get_option( "widget_dynamic-player-widget" ) ?: array();
-	ksort($dyn_option);
 	$styleRegistered = false;
 	foreach($dyn_option as $option)
 	{
@@ -72,10 +70,9 @@ function dyn_scripts() {
 			wp_register_style( 'default-stylesheet', plugins_url('/css/default.css', __FILE__) );
 			$styleRegistered = true;			
 			break;
-		}
-				
+		}			
 	}
-	
+
 	if(! $styleRegistered) 
 	{
 		wp_register_style( 'default-stylesheet', plugins_url('/css/default.css', __FILE__) );
@@ -87,9 +84,105 @@ function dyn_scripts() {
 
 	
 }
+
+function register_dyn_scripts() {
+	$dyn_option = get_option( "widget_dynamic-player-widget" );
+	ksort($dyn_option);
+	$excludedPages = array();
+	$includedPages = array();
+	$includedHomePage = false;
+
+	foreach($dyn_option as $option) 
+	{
+		if(isset($option["dynPlayerExcludePages"])) {
+			$excludedPages = $option["dynPlayerExcludePages"] ? explode(",", $option["dynPlayerExcludePages"]) : array();
+			break;
+		}
+	}
+
+	foreach($dyn_option as $option) 
+	{
+		if(isset($option["dynPlayerIncludePages"])) {
+			$includedPages = $option["dynPlayerIncludePages"] ? explode(",", $option["dynPlayerIncludePages"]) : array();
+			break;
+		}
+	}
 	
+	$excludedPosts = array();
+	$includedPosts = array();
+
+	foreach($dyn_option as $option) 
+	{
+		if(isset($option["dynPlayerExcludePosts"])) {
+			$excludedPosts = $option["dynPlayerExcludePosts"] ? explode(",", $option["dynPlayerExcludePosts"]) : array();
+			break;
+		}
+	}
+	foreach($dyn_option as $option) 
+	{
+		if(isset($option["dynPlayerIncludePosts"])) {
+			$includedPosts = $option["dynPlayerIncludePosts"] ? explode(",", $option["dynPlayerIncludePosts"]) : array();
+			break;
+		}
+	}
+	foreach($dyn_option as $option) 
+	{
+		if(isset($option["dynPlayerShowHomePage"])) {
+			$includedHomePage = $option["dynPlayerShowHomePage"] == "true" ? true : false;
+			break;
+		}
+	}
+
+	if(is_page()) {
+		foreach($excludedPages as $excludedPage)
+		{
+			$excludedPage = trim($excludedPage);
+			if($excludedPage === "all" || is_page($excludedPage)) {
+				return null;
+			}
+		}
+		$included = empty($includedPages) ? true : false;
+		foreach($includedPages as $includedPage)
+		{
+			$includedPage = trim($includedPage);
+			if(is_page($includedPage)) {
+				$included = true;
+			}
+		}
+		if(! $included)
+			return null;
+	}	
+	
+	elseif(is_single()) {
+		foreach($excludedPosts as $excludedPost)
+		{
+			$excludedPost = trim($excludedPost);
+			if($excludedPost === "all" || is_single($excludedPost)) {
+				return null;
+			}
+		}
+		$included = empty($includedPosts) ? true : false;
+		foreach($includedPosts as $includedPost)
+		{
+			$includedPost = trim($includedPost);
+			if(is_single($includedPost)) {
+				$included = true;
+			}
+		}
+		if(! $included)
+			return null;
+	}
+	elseif(is_home())
+	{
+		if(! $includedHomePage)
+			return null;
+	}
+
+	dyn_scripts($dyn_option);
+}
+
 if( !is_admin() ) {
-	add_action('wp_enqueue_scripts', 'dyn_scripts');
+	add_action("template_redirect", "register_dyn_scripts");
 } else {
 	add_action('admin_enqueue_scripts', 'dynamic_my_admin_scripts45656754');
 
@@ -266,10 +359,16 @@ if( isset($active_sidebars['dynamic-player-sidebar']) && empty($active_sidebars[
 		'dynPlaylistHeight' => 165,
 		'dynPlaylistVisible' => 'false',
 		'dynAutoplayEnabled' => 'false',
-		'dynPlayerMargin' => 'top',
+		'dynPlayerMarginFrom' => 'top',
 		'dynPlayerMargin' => 35,
-		'dynPlayerHorMargin' => 'centered',
-		'dynPlayerHorMargin' => 0 );
+		'dynPlayerHorMarginFrom' => 'centered',
+		'dynPlayerHorMargin' => 0,
+		'dynPlayerShowHomePage' => '',
+		'dynPlayerExcludePages' => '',
+		'dynPlayerIncludePages' => '',
+		'dynPlayerExcludePosts' => '',
+		'dynPlayerIncludePosts' => '',
+	);
 	$active_sidebars['dynamic-player-sidebar'] = array('dynamic-player-widget-1') ;
 	update_option('widget_dynamic-player-widget', $dynamicWidgetOptions);
 	update_option('sidebars_widgets', $active_sidebars);
@@ -346,6 +445,11 @@ class Dynamic_Player_Widget extends WP_Widget {
 		$instance['dynPlayerMargin'] = strip_tags( $new_instance['dynPlayerMargin'] );
 		$instance['dynPlayerHorMarginFrom'] = strip_tags( $new_instance['dynPlayerHorMarginFrom'] );
 		$instance['dynPlayerHorMargin'] = strip_tags( $new_instance['dynPlayerHorMargin'] );
+		$instance['dynPlayerShowHomePage'] = strip_tags( $new_instance['dynPlayerShowHomePage'] );
+		$instance['dynPlayerExcludePages'] = strip_tags( $new_instance['dynPlayerExcludePages'] );
+		$instance['dynPlayerIncludePages'] = strip_tags( $new_instance['dynPlayerIncludePages'] );
+		$instance['dynPlayerExcludePosts'] = strip_tags( $new_instance['dynPlayerExcludePosts'] );
+		$instance['dynPlayerIncludePosts'] = strip_tags( $new_instance['dynPlayerIncludePosts'] );
 
 		return $instance;
 	}
@@ -364,7 +468,13 @@ class Dynamic_Player_Widget extends WP_Widget {
 			'dynPlayerMarginFrom' => 'top',
 			'dynPlayerMargin' => 35,
 			'dynPlayerHorMarginFrom' => 'centered',
-			'dynPlayerHorMargin' => 0 );
+			'dynPlayerHorMargin' => 0,
+			'dynPlayerShowHomePage' => '',
+			'dynPlayerExcludePages' => '', 
+			'dynPlayerIncludePages' => '', 
+			'dynPlayerExcludePosts' => '', 
+			'dynPlayerIncludePosts' => '' 
+		);
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
 
@@ -449,6 +559,44 @@ class Dynamic_Player_Widget extends WP_Widget {
         Player Horizontal Margin (px) or leave blank if above option is centered
     </label>
     <input id="<?php echo $this->get_field_id('dynPlayerHorMargin'); ?>" name="<?php echo $this->get_field_name('dynPlayerHorMargin'); ?>" class="widefat" style="width:100%;" type="text" value="<?php echo $instance['dynPlayerHorMargin'] ?>" placeholder="leave blank if player is centered">
+</p>
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'dynPlayerShowHomePage' ); ?>">
+        Show in home page
+    </label>
+    <select id="<?php echo $this->get_field_id('dynPlayerShowHomePage'); ?>" name="<?php echo $this->get_field_name('dynPlayerShowHomePage'); ?>" class="widefat" style="width:100%;">
+		<option <?php selected( $instance['dynPlayerShowHomePage'], 'true'); ?> value="true">true</option>
+        <option <?php selected( $instance['dynPlayerShowHomePage'], 'false'); ?> value="false">false</option>
+    </select>
+</p>
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'dynPlayerExcludePages' ); ?>">
+        Exclude this pages (type a list of page ids (or names) separated by commas to exclude, type "all" to exclude all pages ) 
+    </label>
+    <input id="<?php echo $this->get_field_id('dynPlayerExcludePages'); ?>" name="<?php echo $this->get_field_name('dynPlayerExcludePages'); ?>" class="widefat" style="width:100%;" type="text" value="<?php echo $instance['dynPlayerExcludePages'] ?>" placeholder="leave empty to show in all pages">
+</p>
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'dynPlayerIncludePages' ); ?>">
+        Include this pages (type a list of page ids (or names) separated by commas to include ) 
+    </label>
+    <input id="<?php echo $this->get_field_id('dynPlayerIncludePages'); ?>" name="<?php echo $this->get_field_name('dynPlayerIncludePages'); ?>" class="widefat" style="width:100%;" type="text" value="<?php echo $instance['dynPlayerIncludePages'] ?>" placeholder="leave empty to include all pages">
+</p>
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'dynPlayerExcludePosts' ); ?>">
+        Exclude this posts (type a list of post ids (or names) separated by commas to exclude, type "all" to exclude all posts ) 
+    </label>
+    <input id="<?php echo $this->get_field_id('dynPlayerExcludePosts'); ?>" name="<?php echo $this->get_field_name('dynPlayerExcludePosts'); ?>" class="widefat" style="width:100%;" type="text" value="<?php echo $instance['dynPlayerExcludePosts'] ?>" placeholder="leave empty to show in all posts">
+</p>
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'dynPlayerIncludePosts' ); ?>">
+        Include this posts (type a list of post ids (or names) separated by commas to include ) 
+    </label>
+    <input id="<?php echo $this->get_field_id('dynPlayerIncludePosts'); ?>" name="<?php echo $this->get_field_name('dynPlayerIncludePosts'); ?>" class="widefat" style="width:100%;" type="text" value="<?php echo $instance['dynPlayerIncludePosts'] ?>" placeholder="leave empty to include all posts">
 </p>
 
 
