@@ -3,7 +3,7 @@
 Plugin Name: Dynamic Audio Player
 Plugin URI: http://dynamicaudioplayer.com
 Description: This plugin allows you to add an audio player widget with a dynamic playlist and shortcodes for single buttons
-Version: 2.1.0
+Version: 2.2.0
 Author: Manolo Salsas Durán
 Author URI: http://msalsas.com/en/
 License: GPL2
@@ -402,7 +402,7 @@ class Dynamic_Player_Widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 
-		for( $i=1 ; $i<=5 ; $i++) {
+		for( $i=1 ; $i<=12 ; $i++) {
 			$instance['dynTitle'][$i-1] = strip_tags(get_option('dynamic_title_'.$i));
 			$instance['dynArtist'][$i-1] = strip_tags(get_option('dynamic_artist_'.$i));
 			$instance['dynAlbum'][$i-1] = strip_tags(get_option('dynamic_album_'.$i));
@@ -643,6 +643,55 @@ function dynamic_player_register_settings () {
 	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_5' );
 	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_5' );
 	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_5' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_6' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_6' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_6' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_6' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_6' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_6' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_6' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_7' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_7' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_7' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_7' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_7' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_7' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_7' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_8' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_8' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_8' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_8' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_8' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_8' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_8' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_9' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_9' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_9' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_9' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_9' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_9' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_9' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_10' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_10' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_10' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_10' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_10' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_10' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_10' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_11' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_11' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_11' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_11' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_11' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_11' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_11' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_title_12' );	
+	register_setting( 'dynamic_player_settings-group', 'dynamic_artist_12' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_album_12' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_date_12' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_ogg_file_12' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_mp3_file_12' );
+	register_setting( 'dynamic_player_settings-group', 'dynamic_image_file_12' );
 }
 
 function dynamic_player_settings() {
@@ -868,8 +917,287 @@ function dynamic_player_control_panel () {
 						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_5" value="<?php echo strip_tags(get_option('dynamic_image_file_5'));?>" /> 
 						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
 					</label>Enter a URL or upload an image file (80x80px to 116x116px)
-				</div>			
-     
+				</div>
+				
+				<h3>Default track 6</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_6" value="<?php echo get_option('dynamic_title_6') ? strip_tags(get_option('dynamic_title_6')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_6" value="<?php echo strip_tags(get_option('dynamic_artist_6'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_6" value="<?php echo strip_tags(get_option('dynamic_album_6'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_6" value="<?php echo strip_tags(get_option('dynamic_date_6'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_6" value="<?php echo strip_tags(get_option('dynamic_ogg_file_6'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_6" value="<?php echo strip_tags(get_option('dynamic_mp3_file_6'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_6" value="<?php echo strip_tags(get_option('dynamic_image_file_6'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
+								
+				<h3>Default track 7</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_7" value="<?php echo get_option('dynamic_title_7') ? strip_tags(get_option('dynamic_title_7')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_7" value="<?php echo strip_tags(get_option('dynamic_artist_7'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_7" value="<?php echo strip_tags(get_option('dynamic_album_7'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_7" value="<?php echo strip_tags(get_option('dynamic_date_7'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_7" value="<?php echo strip_tags(get_option('dynamic_ogg_file_7'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_7" value="<?php echo strip_tags(get_option('dynamic_mp3_file_7'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_7" value="<?php echo strip_tags(get_option('dynamic_image_file_7'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
+				
+				<h3>Default track 8</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_8" value="<?php echo get_option('dynamic_title_8') ? strip_tags(get_option('dynamic_title_8')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_8" value="<?php echo strip_tags(get_option('dynamic_artist_8'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_8" value="<?php echo strip_tags(get_option('dynamic_album_8'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_8" value="<?php echo strip_tags(get_option('dynamic_date_8'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_8" value="<?php echo strip_tags(get_option('dynamic_ogg_file_8'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_8" value="<?php echo strip_tags(get_option('dynamic_mp3_file_8'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_8" value="<?php echo strip_tags(get_option('dynamic_image_file_8'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
+				
+				<h3>Default track 9</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_9" value="<?php echo get_option('dynamic_title_9') ? strip_tags(get_option('dynamic_title_9')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_9" value="<?php echo strip_tags(get_option('dynamic_artist_9'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_9" value="<?php echo strip_tags(get_option('dynamic_album_9'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_9" value="<?php echo strip_tags(get_option('dynamic_date_9'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_9" value="<?php echo strip_tags(get_option('dynamic_ogg_file_9'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_9" value="<?php echo strip_tags(get_option('dynamic_mp3_file_9'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_9" value="<?php echo strip_tags(get_option('dynamic_image_file_9'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
+				
+				<h3>Default track 10</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_10" value="<?php echo get_option('dynamic_title_10') ? strip_tags(get_option('dynamic_title_10')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_10" value="<?php echo strip_tags(get_option('dynamic_artist_10'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_10" value="<?php echo strip_tags(get_option('dynamic_album_10'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_10" value="<?php echo strip_tags(get_option('dynamic_date_10'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_10" value="<?php echo strip_tags(get_option('dynamic_ogg_file_10'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_10" value="<?php echo strip_tags(get_option('dynamic_mp3_file_10'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_10" value="<?php echo strip_tags(get_option('dynamic_image_file_10'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
+				
+				<h3>Default track 11</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_11" value="<?php echo get_option('dynamic_title_11') ? strip_tags(get_option('dynamic_title_11')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_11" value="<?php echo strip_tags(get_option('dynamic_artist_11'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_11" value="<?php echo strip_tags(get_option('dynamic_album_11'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_11" value="<?php echo strip_tags(get_option('dynamic_date_11'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_11" value="<?php echo strip_tags(get_option('dynamic_ogg_file_11'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_11" value="<?php echo strip_tags(get_option('dynamic_mp3_file_11'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_11" value="<?php echo strip_tags(get_option('dynamic_image_file_11'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
+				
+				<h3>Default track 12</h3>
+				<div id=".dynamic-title">
+					<label for="upload_title">
+						<input class="upload_title" type="text" size="36" name="dynamic_title_12" value="<?php echo get_option('dynamic_title_12') ? strip_tags(get_option('dynamic_title_12')) : "Unknown Title" ;?>" /> 
+					</label>Enter a title
+				</div>
+				<div id=".dynamic-artist">
+					<label for="upload_artist">
+						<input class="upload_artist" type="text" size="36" name="dynamic_artist_12" value="<?php echo strip_tags(get_option('dynamic_artist_12'));?>" /> 
+					</label>Enter an artist
+				</div>
+				<div id=".dynamic-album">
+					<label for="upload_album">
+						<input class="upload_album" type="text" size="36" name="dynamic_album_12" value="<?php echo strip_tags(get_option('dynamic_album_12'));?>" /> 
+					</label>Enter an album
+				</div>
+				<div id=".dynamic-date">
+					<label for="upload_date">
+						<input class="upload_date" type="text" size="36" name="dynamic_date_12" value="<?php echo strip_tags(get_option('dynamic_date_12'));?>" /> 
+					</label>Enter a date
+				</div>
+				<div id=".dynamic-ogg">
+					<label for="upload_ogg_file">
+						<input class="upload_ogg_file" type="url" size="36" name="dynamic_ogg_file_12" value="<?php echo strip_tags(get_option('dynamic_ogg_file_12'));?>" /> 
+						<input class="upload_ogg_file_button button" type="button" value="Upload .ogg Audio File" />
+					</label>Enter a URL or upload an .ogg audio file
+				</div>
+				<div id=".dynamic-mp3">
+					<label for="upload_mp3_file">
+						<input class="upload_mp3_file" type="url" size="36" name="dynamic_mp3_file_12" value="<?php echo strip_tags(get_option('dynamic_mp3_file_12'));?>" /> 
+						<input class="upload_mp3_file_button button" type="button" value="Upload .mp3 Audio File" />
+					</label>Enter a URL or upload an .mp3 audio file
+				</div>
+				<div id=".dynamic-image">
+					<label for="upload_image_file">
+						<input class="upload_image_file" type="url" size="36" name="dynamic_image_file_12" value="<?php echo strip_tags(get_option('dynamic_image_file_12'));?>" /> 
+						<input class="upload_image_file_button button" type="button" value="Upload Image File" />
+					</label>Enter a URL or upload an image file (80x80px to 116x116px)
+				</div>
                 <div style="clear:both;">
                 </div>
 			</div>

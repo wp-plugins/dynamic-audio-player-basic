@@ -297,8 +297,8 @@
 				//Use default playlist
 				if(typeof $("#dynamic-playlist li").first().attr("data-ogg") !== "undefined" || typeof $("#dynamic-playlist li").first().attr("data-mp3") !== "undefined")  {
 					currentRow = dynThisPlayer.find("#dynamic-playlist li").first();	
-					for(var i=0; i<=4; i++) {
-						if( options.dynOggFile[i] || options.dynMp3File[i] ) {
+					for(var i=0; i<=12; i++) {
+						if( typeof options.dynOggFile[i] !== "undefined" && options.dynOggFile[i] || typeof options.dynMp3File[i] !== "undefined" && options.dynMp3File[i] ) {
 							currentRow.attr("data-title", options.dynTitle[i]);
 							currentRow.attr("data-artist", ' ( ' + options.dynArtist[i] + ' ) ');
 							if(options.dynAlbum[i]) 
