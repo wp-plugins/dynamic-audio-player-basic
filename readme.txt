@@ -1,7 +1,7 @@
 === Dynamic Audio Player Basic ===
 Contributors: msalsas
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GHF4VNXSZ64R4
-Tags: audio, player, mp3, ogg, playlist
+Tags: audio, player, audio player, mp3, ogg, playlist
 Requires at least: 3.0.1
 Tested up to: 4.2.2
 Stable tag: 2.2.0
