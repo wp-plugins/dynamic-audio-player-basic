@@ -52,7 +52,7 @@
 		}, options);
 		
      this.each(function() {
-		 
+		 $("#dynamic-player-sidebar").show();
 		 var dynThisPlayer = $(this);
 		 var playerHtml = '';
 		 var totalSongs = 0;
